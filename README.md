@@ -1,10 +1,12 @@
 # Raspberry Pi Pico Learning Kit
 
 ## Overview
-This kit uses C++ via the Arduino framework instead of MicroPython. While MicroPython is also a great option for the Pico, C++ was chosen because its concepts and syntax are similar to the C# scripting used in Grasshopper, making the knowledge transferrable between microcontroller programming and computational design.
+I wanted to put together an electronics kit for my cute love that would hopefully let her make nifty stuff but also give her a headstart on some grasshopper concepts. That way once she starts learning grasshopper she can do extra cool stuff with it. The ai tells me that grasshopper scripts use c#, so a lot of concepts should be transferrable.
+
+Most tutorials and information online for the pico is for micropython or circuit python. So any googling or llm help will have to specifically be for the arduino sdk or C++. 
 
 ## Setup Instructions
-This kit is designed to be used with Earle Philhower's Arduino-Pico core, which provides better performance and reliability than the native Arduino core. The core allows you to program the Pico using C++ while maintaining the simplicity of the Arduino framework.
+According to people on the internet Earle Philhower's Arduino-Pico core, is heavily superior to the native Arduino SDK. The core allows you to program the Pico using C++ while maintaining the simplicity of the Arduino framework.
 
 Installation and setup instructions can be found here:  
 https://github.com/earlephilhower/arduino-pico
@@ -106,11 +108,26 @@ DHT11 Temperature/Humidity Sensor
 - Operating Voltage: 3.3-5.5V
 - Sampling Rate: 1Hz (max)
 
-### Miscellaneous
-- 2x Mini Breadboards
-- Jumper Wires (Male-to-Male, Male-to-Female)
-- Piezo Buzzers
-- Various Resistors
+### Power Monitoring
+INA219 Current/Power Sensor
+- Voltage Measurement: 0-26V
+- Current Measurement: ±3.2A
+- Resolution: 0.8mA
+- Interface: I2C
+- Default I2C Address: 0x40
+- Power Measurement: High-side current sensing
+- Bus/Shunt ADC Resolution: 12-bit
+
+### Prototyping Materials
+1. Mini Breadboards (2x)
+2. Perfboard
+   - For permanent circuit assembly
+   - Requires soldering
+3. Pico Breakout Board
+   - Screw terminals for secure connections
+   - Requires soldering for assembly
+4. Jumper Wires (Male-to-Male, Male-to-Female)
+5. Various Resistors
 
 ## Common Circuit Configurations
 
@@ -155,6 +172,20 @@ SCL -> GPIO5 (Default I2C0 SCL)
    - Maximum Current: 3A
    - Efficiency: Up to 92%
    - Output ripple: <30mV
+
+### INA219 Current Sensor
+```
+VCC    -> 3.3V
+GND    -> GND
+SDA    -> GPIO4 (Default I2C0 SDA)
+SCL    -> GPIO5 (Default I2C0 SCL)
+V+     -> Power Source (+)
+V-     -> Load (+)
+        -> Load (-)    -> Power Source (-)
+
+Note: V+ and V- connect in series with the load's positive wire
+      for high-side current measurement
+```
 
 ## Power Requirements
 - Total maximum current draw with all components:
